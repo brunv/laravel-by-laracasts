@@ -37,5 +37,7 @@
 // Para pequenos projetos, como APIs, as rotas podem ser utilizads dessa forma.
 // Mas, geralmente, o controle é sempre feito nos Controllers.
 
-
+// Esse nomeação de rotas não é RESTful:
 Route::get('/', 'PagesController@home');
+Route::get('/about', 'PagesController@about');
+Route::get('/contact', 'PagesController@contact');

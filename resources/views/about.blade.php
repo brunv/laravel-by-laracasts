@@ -3,7 +3,7 @@
 <!-- @section('title')
     About Us
 @endsection -->
-@sectino('title', 'About Us')
+@section('title', 'About Us')
 
 @section('content')
     <h1>About Us</h1>
