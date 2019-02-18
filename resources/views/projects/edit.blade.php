@@ -32,4 +32,15 @@
         </div>
 
     </form>
+
+    <form action="{{ url('projects/'.$project->id) }}" method="POST">
+        @method('DELETE')
+        @csrf
+
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button">Delete Project</button>
+            </div>
+        </div>
+    </form>
 @endsection
