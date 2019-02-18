@@ -16,3 +16,9 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('foobar', function () {
+    $this->comment('Fooooooobar.');
+})->describe('Replies to you when called.');
+
+// Também é possível criar comandos por 'php artisan make:command'
