@@ -42,6 +42,24 @@ Route::get('/', 'PagesController@home');
 Route::get('/about', 'PagesController@about');
 Route::get('/contact', 'PagesController@contact');
 
-Route::get('/projects', 'ProjectsController@index');
-Route::post('/projects', 'ProjectsController@store');
-Route::get('/projects/create', 'ProjectsController@create');
+// Route::get('/projects', 'ProjectsController@index');
+// Route::post('/projects', 'ProjectsController@store');
+// Route::get('/projects/create', 'ProjectsController@create');
+
+/**
+ *  URIs para o recurso (resource) 'projects':
+ * 
+ *  GET     /projects           (index)
+ *  GET     /projects/create    (create)
+ *  GET     /projects/{id}      (show)
+ *  POST    /projects           (store)
+ *  GET     /projects/{id}/edit (edit)
+ *  PATCH   /projects/{id}      (update)
+ *  DELTE   /projects/{id}      (destroy)
+ * 
+ *  Isso pode ser conferido em 'php artisan route:list'.
+ *  Essa também é uma convenção RESTful.
+ *  Para criar um Controller resourceful use 'php artisan make:controller _name_ -r'.
+ */
+
+ Route::resource('/projects', 'ProjectsController');
