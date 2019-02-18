@@ -44,12 +44,18 @@ class ProjectsController extends Controller
         //     'description' => request('description')
         // ]);
 
+        // Se tudo for válido retorna os atributos validados:
+        $validated = request()->validate([
+            'title' => 'required|min:3',
+            'description' => ['required', 'min:10']
+        ]);
+
         // MassAssignment:
         // Project::create([
         //     'title' => request('title'),
         //     'description' => request('description')
         // ]);
-        Project::create(request(['title', 'description']));
+        Project::create($validated);
 
         // $project = new Project();
         // $project->title = request('title');
