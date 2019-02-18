@@ -32,12 +32,30 @@ class ProjectsController extends Controller
 
     public function store()
     {
-        $project = new Project();
+        // Caso $guarded esteja vazio (ou seja, aceita MassAssignment em tudo), é possível
+        // passar parâmetros (pelo formulário) que não existam ou mesmo que alterem dados
+        // que não eram para serem alterados, um $id, por exemplo.
+        
+        // dd(request()->all());
+        // dd(request('title'));
+        // dd(request(['title', 'description']));
+        // dd([
+        //     'title' => resquest('title'),
+        //     'description' => request('description')
+        // ]);
 
-        $project->title = request('title');
-        $project->description = request('description');
+        // MassAssignment:
+        // Project::create([
+        //     'title' => request('title'),
+        //     'description' => request('description')
+        // ]);
+        Project::create(request(['title', 'description']));
 
-        $project->save();
+        // $project = new Project();
+        // $project->title = request('title');
+        // $project->description = request('description');
+        // $project->save();
+
         return redirect('/projects');
     }
 
@@ -55,10 +73,12 @@ class ProjectsController extends Controller
 
         // $project = Project::findOrFail($id);
 
-        $project->title = request('title');
-        $project->description = request('description');
+        // $project->title = request('title');
+        // $project->description = request('description');
 
-        $project->save();
+        // $project->save();
+
+        $project->update(request(['title', 'description']));
 
         return redirect('/projects');
     }
