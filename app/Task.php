@@ -16,4 +16,16 @@ class Task extends Model
     {
         return $this->belongsTo(Project::class);
     }
+
+    // encapsulado:
+    public function complete($completed = true)
+    {
+        $this->update(compact('completed'));
+    }
+
+    // abstraindo o caso contrário:
+    public function incomplete()
+    {
+        $this->complete(false);
+    }
 }
