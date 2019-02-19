@@ -22,4 +22,9 @@ class Project extends Model
     // Caso $guard esteja vazio (ou seja, aceita MassAssignment em tudo), é possível
     // passar parâmetros (pelo formulário) que não existam ou mesmo que alterem dados
     // que não eram para serem alterados, um $id, por exemplo.
+
+    public function tasks()
+    {
+        return $this->hasMany(Task::class);
+    }
 }
