@@ -27,4 +27,16 @@ class Project extends Model
     {
         return $this->hasMany(Task::class);
     }
+
+    public function addTask($task)
+    {
+        // return Task::create([
+        //     'project_id' => $this->id,
+        //     'description' => $description
+        // ]);
+
+        // esse método já associa a tarefa com o 'project_id' correto, mas ainda
+        // não impede que seja manipulado pelo formulário.
+        $this->tasks()->create($task);
+    }
 }

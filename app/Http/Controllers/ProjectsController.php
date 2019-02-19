@@ -19,7 +19,7 @@ class ProjectsController extends Controller
     {
         // $project = Project::findOrFail($id);
 
-        // wrap model binding
+        // route model binding
         // return $project;
 
         return view('projects.show', compact('project'));
