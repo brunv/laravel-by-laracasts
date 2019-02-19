@@ -7,6 +7,12 @@
     <!-- Primeiro argumento é a section e o segundo é um default caso não haja section -->
     <title>@yield('title', 'Laravel by Laracasts')</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.css">
+
+    <style>
+        .is-complete {
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
