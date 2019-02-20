@@ -22,8 +22,8 @@ class ProjectTasksController extends Controller
         // ou:
         request()->has('completed') ? $task->complete() : $task->incomplete();
         // ou:
-        // $method = request()->has('completed') ? 'complete' : 'incomplete';
-        // $task->method();
+        // REVIEW $method = request()->has('completed') ? 'complete' : 'incomplete';
+        // REVIEW $task->method();
 
         return back();  // redireciona para a última página acessada anteriormente
     }
