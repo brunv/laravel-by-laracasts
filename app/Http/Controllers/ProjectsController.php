@@ -13,7 +13,7 @@ class ProjectsController extends Controller
 
         // $this->middleware('auth')->only(['store', 'update', 'create']); // aplica para os métodos listados
 
-        $this->middleware('auth')->except(['show']); // aplica para todos os métodos exceto os listados
+        // $this->middleware('auth')->except(['show']); // aplica para todos os métodos exceto os listados
     }
 
     public function index()
@@ -43,7 +43,18 @@ class ProjectsController extends Controller
         //     abort(403);
         // }
         // abort_if($project->owner_id !== auth()->id(), 403); // usando esse helper
-        abort_unless(auth()->user()->owns($project), 403);
+        // abort_unless(auth()->user()->owns($project), 403);
+
+        // Utilizando Policy:
+        // todos os Controllers podem acessar o método Authorize():
+        $this->authorize('view', $project);
+
+        // Utilizando Gate Facade do Laravel:
+        // \Gate::allows ou:
+        // if (\Gate::denies('view', $project)) {
+        //     abort(403);
+        // }
+        // abort_unless(\Gate::allows('update', $project), 403);
 
         return view('projects.show', compact('project'));
     }

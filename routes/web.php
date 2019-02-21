@@ -62,6 +62,7 @@ Route::get('/contact', 'PagesController@contact');
  *  Para criar um Controller resourceful use 'php artisan make:controller _name_ -r'.
  */
 
+// Route::resource('/projects', 'ProjectsController')->middleware('can:view,project');
 Route::resource('/projects', 'ProjectsController');
 
 Route::post('projects/{project}/tasks', 'ProjectTasksController@store');
