@@ -62,10 +62,17 @@ Route::get('/contact', 'PagesController@contact');
  *  Para criar um Controller resourceful use 'php artisan make:controller _name_ -r'.
  */
 
- Route::resource('/projects', 'ProjectsController');
+Route::resource('/projects', 'ProjectsController');
 
- Route::post('projects/{project}/tasks', 'ProjectTasksController@store');
- Route::patch('/tasks/{task}', 'ProjectTasksController@update');
+Route::post('projects/{project}/tasks', 'ProjectTasksController@store');
+Route::patch('/tasks/{task}', 'ProjectTasksController@update');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+// Podemos aplicar um middlewere na própria rota em vez de no Controller:
+// Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+
+// Outro exemplo de middleware é o 'guest'. Ele permite que apenas os usuários convidados,
+// ou seja, os que não estão logados, acessem uma daterminada funcionalidade.
+// Route::get('/signup', 'HomeController@signup1')->name('signup')->middleware('guest');

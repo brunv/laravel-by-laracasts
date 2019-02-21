@@ -9,7 +9,8 @@ class Project extends Model
     // Permitir MassAssignment:
     protected $fillable = [
         'title',
-        'description'
+        'description',
+        'owner_id'
     ];
 
     // Ao contrário do anterior, não permita MassAssignment em:

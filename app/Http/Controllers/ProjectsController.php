@@ -7,10 +7,26 @@ use App\Project;
 
 class ProjectsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');  // aplica para todos os métodos
+
+        // $this->middleware('auth')->only(['store', 'update', 'create']); // aplica para os métodos listados
+
+        $this->middleware('auth')->except(['show']); // aplica para todos os métodos exceto os listados
+    }
+
     public function index()
     {
-        $projects = Project::all();
+        // $projects = Project::all();
+
+        // auth()->id() retorna id do usuário
+        // auth()->user() retorna objeto do usuário
+        // auth()->check() retorna boolean se está logado ou não
+        // aith()->geust() verifica se é convidado ou não
+
         // $projects = auth()->user()->projects();
+        $projects = Project::where('owner_id', auth()->id())->get(); // select * from projects where owner_od = id do user logado
 
         return view('projects.index', compact('projects'));
     }
@@ -50,12 +66,15 @@ class ProjectsController extends Controller
             'description' => ['required', 'min:10']
         ]);
 
+        $validated['owner_id'] = auth()->id();
+
         // MassAssignment:
         // Project::create([
         //     'title' => request('title'),
         //     'description' => request('description')
         // ]);
         Project::create($validated);
+        // Project::create($validated + ['owner_id' => auth()->id()]);
 
         // $project = new Project();
         // $project->title = request('title');
