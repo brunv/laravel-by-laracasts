@@ -33,10 +33,17 @@ class ProjectsController extends Controller
 
     public function show(Project $project)
     {
-        // $project = Project::findOrFail($id);
-
         // route model binding
+        // ou:
+        // $project = Project::findOrFail($id);
         // return $project;
+
+        // Usuário acessa somente seus próprios projetos:
+        // if ($project->owner_id !== auth()->id()) {
+        //     abort(403);
+        // }
+        // abort_if($project->owner_id !== auth()->id(), 403); // usando esse helper
+        abort_unless(auth()->user()->owns($project), 403);
 
         return view('projects.show', compact('project'));
     }
