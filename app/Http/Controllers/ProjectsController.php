@@ -28,6 +28,12 @@ class ProjectsController extends Controller
         // $projects = auth()->user()->projects();
         $projects = Project::where('owner_id', auth()->id())->get(); // select * from projects where owner_od = id do user logado
 
+        // Com telescope podemos armazenar dados que são usados com frequência e que não se alteram com frequência, para que não seja feita sempre a mesma requisição custosa. Exemplo:
+        // cache()->rememberForever('stats', function () {
+        //     return ['lessons' => 32, 'hours' => 6, 'series' => 10];
+        // });
+        // $stats = cache()->get('stats');
+
         return view('projects.index', compact('projects'));
     }
 
