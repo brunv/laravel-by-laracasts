@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\Mail\ProjectCreated;
 
 class ProjectsController extends Controller
 {
@@ -25,8 +26,8 @@ class ProjectsController extends Controller
         // auth()->check() retorna boolean se está logado ou não
         // aith()->geust() verifica se é convidado ou não
 
-        // $projects = auth()->user()->projects();
-        $projects = Project::where('owner_id', auth()->id())->get(); // select * from projects where owner_od = id do user logado
+        $projects = auth()->user()->projects;
+        // $projects = Project::where('owner_id', auth()->id())->get(); // select * from projects where owner_od = id do user logado
 
         // Com telescope podemos armazenar dados que são usados com frequência e que não se alteram com frequência, para que não seja feita sempre a mesma requisição custosa. Exemplo:
         // cache()->rememberForever('stats', function () {
@@ -85,10 +86,7 @@ class ProjectsController extends Controller
         // ]);
 
         // Se tudo for válido retorna os atributos validados:
-        $validated = request()->validate([
-            'title' => 'required|min:3',
-            'description' => ['required', 'min:10']
-        ]);
+        $validated = $this->validateProject();
 
         $validated['owner_id'] = auth()->id();
 
@@ -97,13 +95,18 @@ class ProjectsController extends Controller
         //     'title' => request('title'),
         //     'description' => request('description')
         // ]);
-        Project::create($validated);
+        $project = Project::create($validated);
         // Project::create($validated + ['owner_id' => auth()->id()]);
 
         // $project = new Project();
         // $project->title = request('title');
         // $project->description = request('description');
         // $project->save();
+
+        // Mailing:
+        \Mail::to($project->owner->email)->send(
+            new ProjectCreated($project)
+        );
 
         return redirect('/projects');
     }
@@ -127,7 +130,13 @@ class ProjectsController extends Controller
 
         // $project->save();
 
-        $project->update(request(['title', 'description']));
+        // $validated = request()->validate([
+        //     'title' => 'required|min:3',
+        //     'description' => ['required', 'min:10']
+        // ]);
+        // $project->update(request(['title', 'description']));
+
+        $project->update($this->validateProject());
 
         return redirect('/projects');
     }
@@ -140,5 +149,13 @@ class ProjectsController extends Controller
         $project->delete();
 
         return redirect('/projects');
+    }
+
+    public function validateProject()
+    {
+        return $validated = request()->validate([
+            'title' => 'required|min:3',
+            'description' => ['required', 'min:10']
+        ]);
     }
 }

@@ -33,6 +33,8 @@
 
     </form>
 
+    @include('errors')
+
     <form action="{{ url('projects/'.$project->id) }}" method="POST">
         @method('DELETE')
         @csrf

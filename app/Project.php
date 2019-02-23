@@ -40,4 +40,9 @@ class Project extends Model
         // não impede que seja manipulado pelo formulário.
         $this->tasks()->create($task);
     }
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
