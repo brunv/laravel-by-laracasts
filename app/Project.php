@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ProjectCreated;
+// use App\Mail\ProjectCreated;
+use App\Events\ProjectCreated;
 
 class Project extends Model
 {
@@ -15,21 +16,28 @@ class Project extends Model
         'owner_id'
     ];
 
+    // REVIEW Utilizando o próprio evento 'created' do Eloquent:
+    // Não se esqueça de registrar o Listener em EventServiceProvider caso
+    // esteja utilizando o respecivo Listener.
+    protected $dispatchesEvents = [
+        'created' => ProjectCreated::class
+    ];
+
     // REVIEW Model Hooks for a small event
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        // o método 'created' só é acessado depois que o projeto for criado e
-        // inserido no banco de dados
-        static::created(function ($project) {
+    //     // o método 'created' só é acessado depois que o projeto for criado e
+    //     // inserido no banco de dados
+    //     static::created(function ($project) {
 
-            // Mailing:
-            Mail::to($project->owner->email)->send(
-                new ProjectCreated($project)
-            );
-        });
-    }
+    //         // Mailing:
+    //         Mail::to($project->owner->email)->send(
+    //             new ProjectCreated($project)
+    //         );
+    //     });
+    // }
 
     // Ao contrário do anterior, não permita MassAssignment em:
     // protected $guarded = [

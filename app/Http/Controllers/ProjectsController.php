@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
-use App\Mail\ProjectCreated;
+use App\Events\ProjectCreated;
 
 class ProjectsController extends Controller
 {
@@ -95,13 +95,18 @@ class ProjectsController extends Controller
         //     'title' => request('title'),
         //     'description' => request('description')
         // ]);
-        Project::create($validated);
+        $project = Project::create($validated);
         // Project::create($validated + ['owner_id' => auth()->id()]);
 
         // $project = new Project();
         // $project->title = request('title');
         // $project->description = request('description');
         // $project->save();
+
+        // Event Helper:
+        // Desnecessário quando o próprio evento 'create' do Eloquent é
+        // utilizado para disparar outro evento (ver Project Model).
+        // event(new ProjectCreated($project));
 
         return redirect('/projects');
     }
