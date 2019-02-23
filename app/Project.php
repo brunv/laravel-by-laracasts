@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProjectCreated;
 
 class Project extends Model
 {
@@ -12,6 +14,22 @@ class Project extends Model
         'description',
         'owner_id'
     ];
+
+    // REVIEW Model Hooks for a small event
+    protected static function boot()
+    {
+        parent::boot();
+
+        // o método 'created' só é acessado depois que o projeto for criado e
+        // inserido no banco de dados
+        static::created(function ($project) {
+
+            // Mailing:
+            Mail::to($project->owner->email)->send(
+                new ProjectCreated($project)
+            );
+        });
+    }
 
     // Ao contrário do anterior, não permita MassAssignment em:
     // protected $guarded = [

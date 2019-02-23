@@ -95,18 +95,13 @@ class ProjectsController extends Controller
         //     'title' => request('title'),
         //     'description' => request('description')
         // ]);
-        $project = Project::create($validated);
+        Project::create($validated);
         // Project::create($validated + ['owner_id' => auth()->id()]);
 
         // $project = new Project();
         // $project->title = request('title');
         // $project->description = request('description');
         // $project->save();
-
-        // Mailing:
-        \Mail::to($project->owner->email)->send(
-            new ProjectCreated($project)
-        );
 
         return redirect('/projects');
     }
