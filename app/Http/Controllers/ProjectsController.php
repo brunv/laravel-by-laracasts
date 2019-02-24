@@ -108,6 +108,12 @@ class ProjectsController extends Controller
         // utilizado para disparar outro evento (ver Project Model).
         // event(new ProjectCreated($project));
 
+        // session()->flash('feedback', 'Your project has been created.');
+        //ou usando helper:
+        flash('Your dummy project has been created.');
+        //ou
+        // return redirect('/projects')->with('message', 'Your project has been created.');
+
         return redirect('/projects');
     }
 
