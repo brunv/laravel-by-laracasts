@@ -24,8 +24,21 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        // disparando comandos do artisan:
         // $schedule->command('inspire')
         //          ->hourly();
+
+        // disparando comandos normais de terminal:
+        // $schedule->exec("touch foo.txt")->everyFiveMinutes();
+
+        // everyTenMinutes ou everyFiveMinutes é criado por um helper, mas é limitado
+        // há outras maneiras de setar tempos distintos. Há uma lista na documentação
+
+        //exemplos:
+        $schedule->command('laracasts:clear-history')->monthly()->sendOutputTo('path/to/file')->emailOutputTo('email@email.com');
+        // obs: para enviar por e-mail é necessário salvar o output em algum lugar antes
+        $schedule->command('laracasts:daily-report')->dailyAt('23:55');
+        $schedule->command('laracasts:daily-report')->monthly()->thenPing('url');
     }
 
     /**
