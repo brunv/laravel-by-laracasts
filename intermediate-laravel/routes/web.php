@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\OrderShipped;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +14,11 @@
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/event', function() {
+    $user = new App\User;
+    event(new OrderShipped($user));
     return view('welcome');
 });
