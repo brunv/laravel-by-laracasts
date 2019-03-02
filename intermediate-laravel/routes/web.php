@@ -22,3 +22,13 @@ Route::get('/event', function() {
     event(new OrderShipped($user));
     return view('welcome');
 });
+
+Route::get('/contracts', function() {
+    // dd(Config::get('database.default'));
+    // dd(app('Illuminate\Config\Repository'))['database']['default'];
+    // dd(app('Illuminate\Contracts\Config\Repository'))['database']['default'];
+    // dd(app('Illuminate\Contracts\Config\Repository'));
+    // dd(app()['config']['database']['default']);
+});
+
+Route::get('test', 'WelcomeController@testt');
