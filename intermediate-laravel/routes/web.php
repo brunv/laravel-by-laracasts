@@ -31,4 +31,15 @@ Route::get('/contracts', function() {
     // dd(app()['config']['database']['default']);
 });
 
-Route::get('test', 'WelcomeController@testt');
+Route::get('/test', 'WelcomeController@test');
+
+Route::get('/middlewareteste', ['middleware' => 'auth', function() {
+    return view('welcome');
+}]);
+
+Route::get('/subs', ['middleware' => 'subscribed', function() {
+    return view('welcome');
+}]);
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
