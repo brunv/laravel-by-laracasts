@@ -11,13 +11,11 @@ class MustBeSubscribed
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
+     * @param  string  $plan
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next, $plan)
     {
-        // if the user is logged in AND
-
-        // the user is currently subscribed to the site
 
         $user = $request->user();
 

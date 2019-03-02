@@ -37,8 +37,11 @@ Route::get('/middlewareteste', ['middleware' => 'auth', function() {
     return view('welcome');
 }]);
 
-Route::get('/subs', ['middleware' => 'subscribed', function() {
+// passando parâmetros para middleware
+Route::get('/subs', ['middleware' => 'subscribed:yearly', function() {
     return view('welcome');
+    // se for no controller:
+    // $this->middleware('subscribed');
 }]);
 Auth::routes();
 

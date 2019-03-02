@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'plan',
     ];
 
     /**
@@ -37,8 +37,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isSubscribed()
+    public function isSubscribed($plan = null)
     {
-        return $this->subscribed;
+        // return $this->subscribed;
+
+        if($plan) {
+            return $this->plan == $plan;
+        }
+
+        // cast to a Boolean
+        return !! $this->plan;
     }
 }
