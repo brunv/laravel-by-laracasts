@@ -14,7 +14,7 @@ use App\Events\OrderShipped;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('welcome')->with('user', App\User::first());
 });
 
 Route::get('/event', function() {
