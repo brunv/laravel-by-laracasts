@@ -46,3 +46,5 @@ Route::get('/subs', ['middleware' => 'subscribed:yearly', function() {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/reports', 'ReportsController@index');
